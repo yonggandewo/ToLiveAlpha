@@ -17,9 +17,6 @@ int Rand(){
 	std::mt19937 mt(rand());
 	return mt()%RAND_MAX;
 }
-long long min(long long a,long long b){
-	return a<b?a:b;
-}
 void color(int f,int b){
 	SetConsoleTextAttribute(hOut,f*16+b);
 }
@@ -57,17 +54,24 @@ string itemname(long long code){
 	return aname[code%5]+bname[code/5-1];
 }
 long long priceof(long long k){
-	if(k<5)return 10<<k;
-	if(k>29){
-		if(k<36)return 100;
-		else switch(k){
-			case 36:return 20;
-			case 37:return 30;
-			case 38:return 150;
-			case 39:return 200;
-		}
+	if(k<5||k>29)switch(k){
+		case 0:return 10;
+		case 1:return 20;
+		case 2:return 75;
+		case 3:return 150;
+		case 4:return 175;
+		case 30:return 3;
+		case 31:return 7;
+		case 32:return 10;
+		case 33:return 15;
+		case 34:return 10;
+		case 35:return 20;
+		case 36:return 25;
+		case 37:return 50;
+		case 38:return 125;
+		case 39:return 500;
 	}
-	return 10*(need[k/5-1][0]+priceof(k%5)*need[k/5-1][0]);
+	return 10*need[k/5-1][0]+priceof(k%5)*need[k/5-1][0];
 }
 void setwindow(short r,short c){
 	COORD size={c,100};
@@ -158,7 +162,7 @@ int main(){
 	for(long long i=0;i<40;i++)in>>matter[i];
 	system("cls");
 	lb(15);
-	out("ToLive v1.0.1\n");
+	out("ToLive v1.0.2\n");
 	wline();
 	color(0,15);
 	say("YHX","我好像在哪里见过你...\n");
@@ -180,7 +184,7 @@ int main(){
 		system("cls");
 		color(0,12);
 		lb(15);
-		puts("ToLive v1.0.1");
+		puts("ToLive v1.0.2");
 		wline();
 		color(0,14);
 		cout<<user<<"\n金币："<<money<<"\n生命："<<healthy<<"\n";
@@ -354,7 +358,7 @@ int main(){
 								out("点伤害,\n");
 								say("YHX","你获得了生肉");
 							}else{
-								hurt=5+Rand()%10;
+								hurt=50+Rand()%10;
 								healthy-=hurt;
 								say("YHX","非常遗憾.你没有这种剑.\n");
 								say("YHX","你受到了");
@@ -435,7 +439,7 @@ int main(){
 			}
 			case 6:{
 				long long hurt;
-				say("YHX","你找到了怪物!\n");
+				say("YHX","你遇到了怪物!\n");
 				if(choose(vector<string>({"战斗","逃跑"}))){
 					hurt=5+Rand()%10;
 					healthy-=hurt;
@@ -452,9 +456,9 @@ int main(){
 						say("YHX","你打倒了怪物,并受到了");
 						cout<<hurt;
 						out("点伤害!\n");
-						say("YHX","你获得了生肉!");
+						say("YHX","你获得了生肉");
 					}else{
-						if(matter[kind+24]){
+						if(matter[kind+9]){
 							hurt=100/thingtime[kind-1]+Rand()%10;
 							matter[kind+9]--;
 							healthy-=hurt;
@@ -463,17 +467,15 @@ int main(){
 							cout<<hurt;
 							out("点伤害,\n");
 							say("YHX","你获得了生肉");
-							getch();
 						}else{
-							hurt=5+Rand()%10;
+							hurt=50+Rand()%10;
 							healthy-=hurt;
 							say("YHX","非常遗憾.你没有这种剑.\n");
 							say("YHX","你受到了");
 							cout<<hurt;
 							out("点伤害!\n");
 							say("你",randword(vector<string>({"What?","What!","不!","..."})));
-							getch();
-						}
+					 	}
 					}
 				}
 				break;
@@ -591,7 +593,7 @@ int main(){
 			system("cls");
 			color(0,12);
 			lb(15);
-			puts("ToLive v1.0.1");
+			puts("ToLive v1.0.2");
 			wline();
 			color(0,14);
 			cout<<user<<"\n金币："<<money<<"\n生命："<<healthy<<"\n";
@@ -629,7 +631,7 @@ int main(){
 			system("cls");
 			color(0,12);
 			lb(15);
-			puts("ToLive v1.0.1");
+			puts("ToLive v1.0.2");
 			wline();
 			color(0,14);
 			cout<<user<<"\n金币："<<money<<"\n生命："<<healthy<<"\n";
@@ -703,7 +705,7 @@ int main(){
 			system("cls");
 			color(0,12);
 			lb(15);
-			puts("ToLive v1.0.1");
+			puts("ToLive v1.0.2");
 			wline();
 			color(0,14);
 			cout<<user<<"\n金币："<<money<<"\n生命："<<healthy<<"\n";
